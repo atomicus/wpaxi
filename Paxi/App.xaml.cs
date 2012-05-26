@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Paxi.Libs.GPS;
+using Paxi.Libs;
 namespace Paxi
 {
     public partial class App : Application
@@ -23,6 +24,7 @@ namespace Paxi
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
         public GPS GPSWatcher;
+        public Travel Travel;
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
@@ -40,6 +42,12 @@ namespace Paxi
             //GPS Init
             GPSWatcher = new GPS();
             GPSWatcher.startTracking();
+
+
+            //TravelInit
+            Travel = new Travel(GPSWatcher,new Car());
+
+
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)

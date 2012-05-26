@@ -11,10 +11,21 @@ using System.Windows.Shapes;
 using System.Device.Location;
 namespace Paxi.Libs.GPS
 {
+    public class DistanceEventArgs : EventArgs
+    {
+        double _diff;
+
+        public double Diff
+        {
+            get { return _diff; }
+            set { _diff = value; }
+        }
+        public DistanceEventArgs(double diff) { Diff = diff; }
+    }
     public class GPS
     {
         IGeoPositionWatcher<GeoCoordinate> _watcher;
-
+        public event EventHandler<DistanceEventArgs> DistanceChanged;
         public IGeoPositionWatcher<GeoCoordinate> Watcher
         {
             get { return _watcher; }
@@ -94,7 +105,9 @@ namespace Paxi.Libs.GPS
                 this.PrevLongitude = longitude;
                 return;
             }
-            this.TotalDistance += this.CalculateGreatCircleDistance(this.PrevLatitude, this.PrevLongitude, latitude, longitude);
+            double diff = this.CalculateGreatCircleDistance(this.PrevLatitude, this.PrevLongitude, latitude, longitude);
+            OnDistanceChanged(new DistanceEventArgs(diff));
+            this.TotalDistance += diff;
             this.PrevLatitude = latitude;
             this.PrevLongitude = longitude;
         }
@@ -152,6 +165,11 @@ namespace Paxi.Libs.GPS
             {
                 System.Diagnostics.Debug.WriteLine("Location Unknown");
             }
+        }
+        protected virtual void OnDistanceChanged(DistanceEventArgs e)
+        {
+            if (DistanceChanged != null)
+                DistanceChanged(this, e);
         }
         #endregion
 

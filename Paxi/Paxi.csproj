@@ -62,12 +62,28 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Libs\ITravelEvent1.cs" />
+    <Compile Include="Libs\MultipleTemplateListBox.cs" />
+    <Compile Include="Libs\Travel.cs" />
+    <Compile Include="Libs\Car.cs" />
     <Compile Include="Libs\GeoCoordinateSimulator.cs" />
     <Compile Include="Libs\GPS.cs" />
+    <Compile Include="Libs\TravelCalculator.cs" />
+    <Compile Include="Libs\Traveler.cs" />
+    <Compile Include="Libs\TravelEvents.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Fee.xaml.cs">
+      <DependentUpon>Fee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FuelConsumption.xaml.cs">
+      <DependentUpon>FuelConsumption.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoadType.xaml.cs">
+      <DependentUpon>RoadType.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -75,6 +91,18 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Fee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FuelConsumption.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoadType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,9 +120,7 @@
     </Content>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

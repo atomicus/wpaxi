@@ -6,7 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -21,25 +21,47 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28"></StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ListBox Height="651" HorizontalAlignment="Left" Name="TravelersList" VerticalAlignment="Top" Width="468">
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <Button Width="468" Height="100" Name="listElement" Click="listElement_Click" IsEnabled="{Binding isActive}">
+                        <Button.Content>
+                          
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="100" Width="auto" >
+                                        <TextBlock HorizontalAlignment="Left" Text="{Binding Label}" Width="auto" ></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Text="   " Width="auto" ></TextBlock>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding PartialDistance}" Width="auto"></TextBlock>
+                                    <TextBlock HorizontalAlignment="Left" Text="km" Width="auto" ></TextBlock>
+                                </StackPanel>
+                              
+                            </Button.Content>
+                        </Button>
+                    </DataTemplate>
+                    
+                </ListBox.ItemTemplate>
+
+                
+            </ListBox>
+            <Button Content="Button" Height="72" HorizontalAlignment="Left" Margin="294,-28,0,0" Name="button1" VerticalAlignment="Top" Width="160" Click="button1_Click" />
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Road" Click="RoadType_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Car" Click="FuelConsumption_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Fee" Click="Fee_Click"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Play"  Click="ApplicationBarIconButton_Click_1"/>
+            <!--<shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+            </shell:ApplicationBar.MenuItems>-->
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
