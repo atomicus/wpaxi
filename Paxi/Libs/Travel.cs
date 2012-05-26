@@ -23,10 +23,11 @@ namespace Paxi.Libs
         private List<TravelEvent> _Events = new List<TravelEvent>();
         private GPS.GPS _GPS;
         private Car _car;
-
-
-
-
+        /// <summary>
+        /// Creates a travel object.
+        /// </summary>
+        /// <param name="_gps">GPS watcher</param>
+        /// <param name="_car">Car object</param>
         public Travel(GPS.GPS _gps, Car _car)
         {
             this.GPS = _gps;
@@ -36,7 +37,9 @@ namespace Paxi.Libs
             GPS.DistanceChanged += new EventHandler<DistanceEventArgs>(DistanceChanged);
 
         }
-
+        /// <summary>
+        /// Sets new travel state based on actual, rotates through [stoped,started,cleared]
+        /// </summary>
         public void setNewTravelState()
         {
             //start new trip;
@@ -83,41 +86,66 @@ namespace Paxi.Libs
         {
             Travelers.Clear();
         }
-
+        /// <summary>
+        /// Adds new traveler to our trip
+        /// </summary>
+        /// <param name="_trv">Traveler that just eneter a car!</param>
         public void EnterCar(Traveler _trv)
         {
             _trv._startDistance = GPS.TotalDistance;
             Travelers.Add(_trv);
             _Events.Add(new EnterCarTravelEvent(GPS.TotalDistance));
         }
+        /// <summary>
+        /// Someone has left our party, ohh what a pity.
+        /// </summary>
+        /// <param name="_trv"></param>
         public void LeaveCar(Traveler _trv)
         {
             _trv.FinishTravel(GPS.TotalDistance);
             _Events.Add(new LeaveCarTravelEvent(GPS.TotalDistance));
         }
+        /// <summary>
+        /// Highways are expenisve. That's a pity too.
+        /// </summary>
+        /// <param name="_feeValue"></param>
         public void AddFee(double _feeValue)
         {
             _Events.Add(new FeeTravelEvent(GPS.TotalDistance, _feeValue));
         }
+        /// <summary>
+        /// We've moved from city to suburbs highway, let's take it into account.
+        /// </summary>
+        /// <param name="_newType"></param>
         public void ChangeRouteType(ChangeRouteTypeTravelEvent.RouteTypes _newType)
         {
             _Events.Add(new ChangeRouteTypeTravelEvent(GPS.TotalDistance, _newType));
         }
-
+        /// <summary>
+        /// Calcualte costs of travel for all travelers up to current distance
+        /// </summary>
         public void CalculateCosts()
         {
             //create new travel calculator.
             TravelCalculator calc = new TravelCalculator(_Travelers, _Events, Car);
 
         }
-
+        /// <summary>
+        /// Updates current travel state based on all events that taken place till now.
+        /// </summary>
+        /// <returns></returns>
         public TravelCalculator getTravelState()
         {
             TravelCalculator trv = new TravelCalculator(_Travelers, _Events, Car);
             trv.getState();
             return trv;
         }
-                
+        /// <summary>
+        /// Event triggered when distance changes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args">DistanceEventArgs.Diff describing distance chanege</param>
+        
         public void DistanceChanged(object sender, DistanceEventArgs args)
         {
             Travelers.ForEach(delegate(Traveler tmp)
