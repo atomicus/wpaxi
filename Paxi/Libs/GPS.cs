@@ -11,6 +11,9 @@ using System.Windows.Shapes;
 using System.Device.Location;
 namespace Paxi.Libs.GPS
 {
+    /// <summary>
+    /// Arguments for distance change events.
+    /// </summary>
     public class DistanceEventArgs : EventArgs
     {
         double _diff;
@@ -22,6 +25,10 @@ namespace Paxi.Libs.GPS
         }
         public DistanceEventArgs(double diff) { Diff = diff; }
     }
+    /// <summary>
+    /// GPS class setuping all logic required to get gps location.
+    /// Provieds events to notify all listeners about important changes
+    /// </summary>
     public class GPS
     {
         IGeoPositionWatcher<GeoCoordinate> _watcher;
@@ -33,6 +40,9 @@ namespace Paxi.Libs.GPS
         }
         double _totalDistance, _prevLatitude, _prevLongitude;
 
+        /// <summary>
+        /// Longitude of previuous read from GPS instruments
+        /// </summary>
         public double PrevLongitude
         {
 
@@ -40,12 +50,18 @@ namespace Paxi.Libs.GPS
             set { _prevLongitude = value; }
         }
 
+        /// <summary>
+        /// Latttitude of previuous read from GPS instruments
+        /// </summary>
         public double PrevLatitude
         {
             get { return _prevLatitude; }
             set { _prevLatitude = value; }
         }
 
+        /// <summary>
+        /// Total distance made by this instance of GPS class since startTravel() method was called
+        /// </summary>
         public double TotalDistance
         {
             get { return _totalDistance; }
@@ -78,7 +94,6 @@ namespace Paxi.Libs.GPS
             }
 
             //Default, High
-            
             Watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
             Watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
             Watcher.Start();
@@ -92,6 +107,7 @@ namespace Paxi.Libs.GPS
             Watcher.Stop();
             return TotalDistance;
         }
+
         /// <summary>
         /// Adds distance from last GPS cooridnates to current GPS cooridinates to current distance.
         /// </summary>
@@ -157,7 +173,6 @@ namespace Paxi.Libs.GPS
                 double hAccuracy = e.Position.Location.HorizontalAccuracy;
                 double vAccuracy = e.Position.Location.VerticalAccuracy;
                 DateTimeOffset time = e.Position.Timestamp;
-                 
                 this.addDistanceByNextCooridinates(latitude, longitude);
                 System.Diagnostics.Debug.WriteLine("Total distance: " + this.TotalDistance);
             }
@@ -172,6 +187,5 @@ namespace Paxi.Libs.GPS
                 DistanceChanged(this, e);
         }
         #endregion
-
     }
 }

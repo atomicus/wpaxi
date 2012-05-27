@@ -64,15 +64,13 @@ namespace Paxi
             System.Diagnostics.Debug.WriteLine(sender.ToString());
         }
 
-        private void ApplicationBarIconButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ApplicationBarIconButton_Click_1(object sender, EventArgs e)
         {
-
+            App currentApp = (App)Application.Current;
+            currentApp.Travel.setNewTravelState();
         }
+
+
 
 
         
