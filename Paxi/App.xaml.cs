@@ -25,6 +25,7 @@ namespace Paxi
         public PhoneApplicationFrame RootFrame { get; private set; }
         public GPS GPSWatcher;
         public Travel Travel;
+        double height, width;
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
@@ -41,12 +42,16 @@ namespace Paxi
 
             //GPS Init
             GPSWatcher = new GPS();
-            GPSWatcher.startTracking();
+           // GPSWatcher.startTracking();
 
 
             //TravelInit
             Travel = new Travel(GPSWatcher,new Car());
 
+
+            //Set global app width&height
+            double height = ((FrameworkElement)App.Current.RootVisual).ActualHeight;
+            double width = ((FrameworkElement)App.Current.RootVisual).ActualWidth;
 
 
             // Show graphics profiling information while debugging.

@@ -180,6 +180,7 @@ namespace Paxi.Libs.GPS
 			{
 				if (value != position)
 				{
+                    if (value == null) return;
 					position = value;
 					RaisePositionChanged(new GeoPositionChangedEventArgs<GeoCoordinate>(position));
 				}

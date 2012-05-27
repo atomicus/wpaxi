@@ -16,21 +16,29 @@
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*
+                           "/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="paxi" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Road type:" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button Content="City" Height="98" HorizontalAlignment="Left" Margin="36,40,0,0" Name="button1" VerticalAlignment="Top" Width="384" Click="City_Click"/>
-            <Button Content="Mixed" Height="98" HorizontalAlignment="Left" Margin="36,145,0,0" Name="button2" VerticalAlignment="Top" Width="384" Click="Mixed_Click"/>
-            <Button Content="Highway" Height="98" HorizontalAlignment="Left" Margin="36,251,0,0" Name="button3" VerticalAlignment="Top" Width="384" Click="Highway_Click"/>
+        <Grid x:Name="ContentPanel" Grid.Row="0" Margin="12,0,12,0">
+            <Button  Height="220" HorizontalAlignment="Center" Margin="0,5,0,0" Name="button1" VerticalAlignment="Top" Click="City_Click"  BorderThickness="0" Width="480">
+            	<Button.Background>
+            		<ImageBrush Stretch="Fill" ImageSource="/Images/mode_city.png"/>
+            	</Button.Background>
+            </Button>
+            <Button  Height="240" HorizontalAlignment="Left" Margin="-12,225,0,0" Name="button2" VerticalAlignment="Top" Width="480" Click="Mixed_Click"  BorderThickness="0">
+            	<Button.Background>
+            		<ImageBrush Stretch="Fill" ImageSource="/Images/mode_mixed.png"/>
+            	</Button.Background>
+            </Button>
+            <Button  HorizontalAlignment="Left" Margin="-12,0,0,63" Name="button3" Width="480" Click="Highway_Click" Height="240" VerticalAlignment="Bottom"  d:LayoutOverrides="VerticalAlignment">
+            	<Button.Background>
+            		<ImageBrush Stretch="Fill" ImageSource="/Images/mode_hw.png"/>
+            	</Button.Background>
+            </Button>
         </Grid>
     </Grid>
  

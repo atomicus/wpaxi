@@ -38,6 +38,17 @@ namespace Paxi.Libs
 
         }
         /// <summary>
+        /// Returns icon name for next travel state 
+        /// </summary>
+        /// <returns></returns>
+        public String IconNameForNextState() 
+        {
+            if (TravelState == TravelStates.clear) { return @"t_start.png"; }
+            if (TravelState == TravelStates.stoped) { return @"t_clear.png"; }
+            if (TravelState == TravelStates.started) { return @"t_stop.png"; };
+            return @"";
+        }
+        /// <summary>
         /// Sets new travel state based on actual, rotates through [stoped,started,cleared]
         /// </summary>
         public void setNewTravelState()
@@ -68,6 +79,7 @@ namespace Paxi.Libs
         /// </summary>
         public void StartTravel() 
         {
+           // setNewTravelState();
             GPS.startTracking();
         }
         /// <summary>
@@ -76,6 +88,7 @@ namespace Paxi.Libs
         /// </summary>
         public void StopTravel() 
         {
+           // setNewTravelState();
             GPS.stopTracking();
         }
         /// <summary>
@@ -84,6 +97,7 @@ namespace Paxi.Libs
         /// </summary>
         public void ClearTravel()
         {
+           // setNewTravelState();
             Travelers.Clear();
         }
         /// <summary>

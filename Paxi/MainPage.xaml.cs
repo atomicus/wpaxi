@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Paxi.Libs;
+using System.Windows.Media.Imaging;
 namespace Paxi
 {
     public partial class MainPage : PhoneApplicationPage
@@ -19,6 +20,9 @@ namespace Paxi
         public MainPage()
         {
             InitializeComponent();
+            App currentApp = (App)Application.Current;
+            currentApp.Travel.Travelers.Add(new Libs.Traveler("Janek"));
+            TravelersList.ItemsSource = currentApp.Travel.Travelers;
             Loaded += new RoutedEventHandler(MainPage_Loaded);
 
 
@@ -39,23 +43,24 @@ namespace Paxi
         }
         void MainPage_Loaded(object sender, RoutedEventArgs args) 
         {
-             App currentApp = (App)Application.Current;
-             currentApp.Travel.Travelers.Add(new Libs.Traveler("Janek"));
-             TravelersList.ItemsSource = currentApp.Travel.Travelers;
+
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void AddTravelerClick(object sender, RoutedEventArgs e)
         {
             App currentApp = (App)Application.Current;
             currentApp.Travel.EnterCar(new Libs.Traveler("Janek"));
             TravelersList.ItemsSource = null;
+            System.Diagnostics.Debug.WriteLine("Traveler added");
             currentApp.Travel.Travelers.Sort();
             TravelersList.ItemsSource = currentApp.Travel.Travelers;
         }
 
         private void listElement_Click(object sender, RoutedEventArgs e)
         {
-            Traveler item = (Traveler)(sender as Button).DataContext;
+            Control snd = (Control)sender;
+
+            Traveler item = (Traveler)snd.DataContext;
             App currentApp = (App)Application.Current;
             currentApp.Travel.LeaveCar(item);
             TravelersList.ItemsSource = null;
@@ -68,6 +73,16 @@ namespace Paxi
         {
             App currentApp = (App)Application.Current;
             currentApp.Travel.setNewTravelState();
+            Button button = (Button)sender;
+            TravelersList.ItemsSource = null;
+            currentApp.Travel.Travelers.Sort();
+            TravelersList.ItemsSource = currentApp.Travel.Travelers;
+                               string icon = @"Images/"+currentApp.Travel.IconNameForNextState();
+                               ImageBrush tmp = new ImageBrush();
+                               tmp.ImageSource = new BitmapImage(new Uri(icon, UriKind.Relative));
+
+                               button.Background = tmp;
+            
         }
 
 
